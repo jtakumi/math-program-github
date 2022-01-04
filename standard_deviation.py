@@ -1,5 +1,7 @@
 import math
 
+from pandas.core.indexes import base
+
 import numpy as np
 import pandas as pd
 from matplotlib import pylab as plt
@@ -18,4 +20,14 @@ df_s=pd.read_csv('D:\java\math-program-github\math-program-book-master\9_data\�
 #力士のデータ描写を決定
 df_s[['身長','体重']].plot(kind='scatter',x='身長',y='体重',
                           color='red',alpha=0.3,ax=ax)
+baseball=df_b
+sumou=df_s
+#BMI計算
+baseball['BMI']=baseball['体重']/((baseball['身長']/100)**2)
+sumou['BMI']=sumou['体重']/((sumou['身長']/100)**2)
+#pandasで標準偏差を計算
+baseball_std=np.std(baseball['BMI'])
+sumou_std=np.std(sumou['BMI'])
+
+pd.DataFrame({'標準偏差 ':[baseball_std,sumou_std]},index=['野球','相撲'])
 plt.show()

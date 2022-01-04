@@ -15,3 +15,7 @@ baseball['BMI']=baseball['体重']/((baseball['身長']/100)**2)
 sumou['BMI']=sumou['体重']/((sumou['身長']/100)**2)
 print(baseball.head(3))
 print(sumou.head(3))
+#pandasで標準偏差を計算
+baseball_std=np.std(baseball['BMI'])
+sumou_std=np.std(sumou['BMI'])
+pd.DataFrame({'標準偏差 ':[baseball_std,sumou_std]},index=['野球','相撲'])
