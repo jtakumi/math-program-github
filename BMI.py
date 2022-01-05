@@ -18,4 +18,4 @@ print(sumou.head(3))
 #pandasで標準偏差を計算
 baseball_std=np.std(baseball['BMI'])
 sumou_std=np.std(sumou['BMI'])
-pd.DataFrame({'標準偏差 ':[baseball_std,sumou_std]},index=['野球','相撲'])
+print(pd.DataFrame({'標準偏差 ':[baseball_std,sumou_std]},index=['野球','相撲']))
