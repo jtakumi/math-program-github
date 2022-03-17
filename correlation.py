@@ -11,6 +11,8 @@ baseball=pd.read_csv('C:/Users/Takum/programing/math-program-github/math-program
 soccer=pd.read_csv('C:/Users/Takum/programing/math-program-github/math-program-book-master/9_data/サッカー/Jリーグ選手身長体重.csv')
 sumou=pd.read_csv('C:/Users/Takum/programing/math-program-github/math-program-book-master/9_data/相撲/力士身長体重.csv')
 
+olympic=pd.read_csv('C:/Users/Takum/programing/math-program-github/math-program-book-master/9_data/陸上/100メートル走記録繊維男子.csv')
+
 def cov(x,y):
     #平均を求める
     x_mean=np.mean(x)
@@ -30,7 +32,8 @@ df=pd.DataFrame({'相関係数':[
     corr(baseball['身長'],baseball['体重']),
     corr(soccer['身長'],soccer['体重']),
     corr(sumou['身長'],sumou['体重']),
-]},index=['野球','サッカー','相撲'])
+    corr(olympic['年'],olympic['タイム']),
+]},index=['野球','サッカー','相撲','オリンピック１００メートルタイム'])
 
 df.to_csv('../math-program-github/CorrelationCsv.csv')
 print(df)
