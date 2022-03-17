@@ -20,3 +20,23 @@ plt.savefig(f)
 sumou.plot(kind='scatter',x="身長",y="体重",title="力士の身長/体重")
 f='covariance_sumou.png'
 plt.savefig(f)
+print("画像保存が完了しました。")
+
+def cov(x,y):
+    #平均を求める
+    x_mean=np.mean(x)
+    y_mean=np.mean(y)
+    n=len(x)
+    c=0.0
+
+    for i in range(n):
+        c+=(x[i]-x_mean)*(y[i]-y_mean)
+    return c/n
+
+df=pd.DataFrame({'共分散':[
+    cov(baseball['身長'],baseball['体重']),
+    cov(soccer['身長'],soccer['体重']),
+    cov(sumou['身長'],sumou['体重']),
+]},index=['野球','サッカー','相撲'])
+
+df.to_csv('../math-program-github/CovarianveCsv.csv')
