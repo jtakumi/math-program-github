@@ -17,7 +17,7 @@ def bathtub_curve(t,lambd,alpha,beta):
     t2=4.0
     if t < 2.0:
         return exp_dist(t,lambd,beta)
-    elif t < t2:
+    elif t < t2: 
         return beta
     else:
         return exp_dist_sym(t,t2,alpha,beta)
