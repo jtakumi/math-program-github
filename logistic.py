@@ -72,7 +72,6 @@ dataset_['予測値y']=y
 #結果をファイル保存
 with open('logistic.txt','w',encoding='utf-8') as f:
     print(dataset_,file=f)
-fc=open('logistic.csv','w',encoding='utf-8')
-csv.writer(fc).writerows(dataset_)
+dataset_.to_csv('logistic.csv',encoding='utf-8')
 
 plt.show()
