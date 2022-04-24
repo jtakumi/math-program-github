@@ -2,6 +2,7 @@ import imp
 import math
 import copy
 from tkinter.ttk import LabelFrame
+from matplotlib.pyplot import savefig
 
 import pandas as pd
 import numpy as np
@@ -9,7 +10,8 @@ from matplotlib import pylab as plt
 
 import japanize_matplotlib 
 #sample_dataset
-dataset=pd.DataFrame({'x1':[1.5,2,3,1.5,0.5,-1,-2,-3,-1.5,0],
+dataset=pd.DataFrame({'x0':[1,1,1,1,1,1,1,1,1,1],
+                    'x1':[1.5,2,3,1.5,0.5,-1,-2,-3,-1.5,0],
                     'x2':[1,2.5,3,-2,2,-3,-1.2,-0.5,2,-1.5],
                     'label':['A','A','A','A','A','B','B','B','B','B'],
                     'label_index':[1.0,1.0,1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0]})
@@ -17,6 +19,15 @@ dataset=pd.DataFrame({'x1':[1.5,2,3,1.5,0.5,-1,-2,-3,-1.5,0],
 #formula_A
 def discriminant(p,w):
     return np.dot(p,w)
+
+#シグモイド関数
+def std_sigmoid(x):
+    return 1/(1+np.exp(-x))
+
+
+def log(x):
+    return math.log(max(x,1.0E-20))
+
 #formula_B
 def activate(x):
     if -1<x:
@@ -24,18 +35,34 @@ def activate(x):
     else:
         return -1
 
+
+
 data_size=len(dataset.index)
 x=np.array(dataset.loc[:,['x1','x2']])
 w=[1,1]
-
+#学習率
+eta=0.05
+#誤差
+error=0
+#予測の出力値
+y=np.zeros(data_size)
 #正解ラベル
 label_answer=np.array(dataset['label_index'])
+#最大試行回数
+max_iter=40
+
 #識別関数の値を初期化
 output_test=np.zeros(data_size)
 #予測ラベル
 label_test=np.zeros(data_size)
 #予測結果の正否
 result=np.zeros(data_size)
+#学習率
+eta=0.05
+#誤差
+error=0
+for i in range(data_size):
+    w-=eta*(y[i]-label_answer[i])*x[i]
 
 #データセットからラベルを予測する
 for i in range(data_size):
