@@ -73,44 +73,44 @@ error_test.to_csv('pcp_error.csv')
 eta=0.1
 #最大試行回数
 max_iter=100
-
 #データセットからラベルを予測する
-for i in range(max_iter):
-    output_test=np.zeros(data_size)
-    label_test=np.zeros(data_size)
-    result=np.zeros(data_size)
+with open('perceptron_data.txt','w',encoding='utf-8') as f:
+    for i in range(max_iter):
+        output_test=np.zeros(data_size)
+        label_test=np.zeros(data_size)
+        result=np.zeros(data_size)
 
-    #データセットから予測ラベルの出力
-    for j in range(data_size):
-        output_test[j]=discriminant(x[j],w)
-        label_test[j]=activate(output_test[j])
-        result[j]=label_answer[j]==label_test[j]
+        #データセットから予測ラベルの出力
+        for j in range(data_size):
+            output_test[j]=discriminant(x[j],w)
+            label_test[j]=activate(output_test[j])
+            result[j]=label_answer[j]==label_test[j]
 
-    #誤差を求める
-    error=0
+        #誤差を求める
+        error=0
 
-    for j in range(data_size):
-        if result[j]==0.0:
-            error-=(output_test[j]*label_answer[j])
-    
-    #誤分類の個数
-    miss_classfication=np.sum(result==0.0)
+        for j in range(data_size):
+            if result[j]==0.0:
+                error-=(output_test[j]*label_answer[j])
+        
+        #誤分類の個数
+        miss_classfication=np.sum(result==0.0)
 
-    print('<{0}回目>'.format(i+1))
-    print('誤差関数の値:{0:2f}'.format(error))
-    print('誤分類の個数:{0}'.format(miss_classfication))
-    print('係数ベクトルの値:w0={0:2f},w1={1:.2f}'.format(w[0],w[1]))
-    print()
+        print('<{0}回目>'.format(i+1),file=f)
+        print('誤差関数の値:{0:2f}'.format(error),file=f)
+        print('誤分類の個数:{0}'.format(miss_classfication),file=f)
+        print('係数ベクトルの値:w0={0:2f},w1={1:.2f}'.format(w[0],w[1]),file=f)
+        print(file=f)
 
-    #すべて正解ラベルに分類出来たら試行終了
-    if miss_classfication==0:
-        break
-
-    #係数の更新(確率的勾配降下法)
-    for j in np.random.permutation(np.arange(data_size)):
-        if result[j]==0.0:
-            w+=eta*x[j]*label_answer[j]
+        #すべて正解ラベルに分類出来たら試行終了
+        if miss_classfication==0:
             break
+
+        #係数の更新(確率的勾配降下法)
+        for j in np.random.permutation(np.arange(data_size)):
+            if result[j]==0.0:
+                w+=eta*x[j]*label_answer[j]
+                break
 
 #before data
 #LabelAのプロット
