@@ -109,10 +109,10 @@ plt.ylim([50,250])
 
 
 #LabelAのプロット
-label_a=train_data[train_data['label_index']==1]
+label_a=test_data[test_data['label_index']==1]
 plt.scatter(label_a['x1'],label_a['x2'],label='Label A',marker='o')
 #LabelBのプロット
-label_b=train_data[train_data['label_index']==-1]
+label_b=test_data[test_data['label_index']==-0]
 plt.scatter(label_a['x1'],label_a['x2'],label='Label B',marker='x')
 plt.legend()
 
